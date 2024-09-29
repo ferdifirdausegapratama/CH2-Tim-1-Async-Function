@@ -4,6 +4,7 @@ const fs = require("fs");
 const functionTim1 = require('./function.js');
 const aqsaFunction = require('./Aqsa.js');
 const rizalFunction = require('./rizal.js')
+const ferdiFunction = require('./ferdi.js');
 const file = './index.txt';
 
 const server = http.createServer((req, res) => {
@@ -46,6 +47,18 @@ const server = http.createServer((req, res) => {
             }
         }
         rizalRewrite();
+    } else if (pathUrl === "/ferdi") {  
+        async function ferdiRewrite() {
+            try {
+                const result = await ferdiFunction.rewrite(file); 
+                res.end(result);
+            } catch (error) {
+                console.error("Error in Ferdi rewrite:", error);
+                res.statusCode = 500;
+                res.end("Error in Ferdi rewrite.");
+            }
+        }
+        ferdiRewrite();
     } else {
         res.end("404");
     }
